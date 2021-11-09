@@ -1,6 +1,11 @@
 import os, cv2, re
 import moviepy.editor as mp
 import argparse
+from datetime import date
+import logging
+
+#Global varible
+logger: logging.Logger
 
 
 def humanSort(text):  # Sort function for strings w/ numbers
@@ -32,7 +37,9 @@ def convert(file_path, conv_path, frame_path, file, width, height, fps):
     if not os.path.exists(frame_path):
         os.makedirs(frame_path)
 
-    print(frame_path, totalFrames)
+    print(f'{frame_path}, {totalFrames}')
+    logger.info(f'{frame_path}, {totalFrames}')
+    
     while success:
       cv2.imwrite(os.path.join(frame_path, file)[:-4]+"_%d.png" % count, image)
       success,image = vidcap.read()
@@ -59,6 +66,16 @@ def read_paths(root, root_conv, root_frames, width, height, fps, format, erase_c
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+
+    #Create instance of logger to log the changes in a file
+    today = date.today()
+    today = today.strftime("%d_%m_%Y__%m_%h_%s")
+    logging.basicConfig(filename="./logs/video_frames_logs_" + today + ".log",
+                        format= '%(asctime)s %(message)s',
+                        filemode='w')
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
 
     # Paths and settings
     parser.add_argument('--root_videos',      type=str, default='PATH_TO_TYPE_VIDEOS', help='root_videos -> directory_to_type_video -> video')

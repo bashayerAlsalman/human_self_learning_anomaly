@@ -1,7 +1,8 @@
 
 
-/media/imam/My\ Book/human_self_learning_anomaly/
+/media/imam/Book/human_self_learning_anomaly/
 
+python3 utils/video_frames.py --root_videos data/UBI_FIGHTS/videos --root_conv_videos /media/imam/Book/human_self_learning_anomaly/conv_videos --root_frames /media/imam/Book/human_self_learning_anomaly/frames
 
 python3 utils/video_frames.py --root_videos data/UBI_FIGHTS/videos --root_conv_videos /media/imam/My\ Book/human_self_learning_anomaly/conv_videos --root_frames /media/imam/My\ Book/human_self_learning_anomaly/frames
 

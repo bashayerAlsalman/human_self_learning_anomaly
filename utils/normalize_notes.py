@@ -18,7 +18,7 @@ def read_file(source):
 
 
 def write_file(source, content):
-    with open(source, 'w') as writeFile:
+    with open(source, 'w+') as writeFile:
         writer = csv.writer(writeFile)
         writer.writerows(content)
 

@@ -3,12 +3,16 @@ import moviepy.editor as mp
 import argparse
 from datetime import date
 import logging
+import os.path
+from os import path
+from numpy.lib.utils import lookfor 
 
 #Global varible
 too_short = []
 logger: logging.Logger
 
 def humanSort(text):  # Sort function for strings w/ numbers
+    print(f' in humanSort the text is {text} \n')
     convText = lambda seq: int(seq) if seq.isdigit() else seq.lower()
     arrayKey = lambda key: [convText(s) for s in re.split('([0-9]+)', key)]  # Split numbers and chars, base function for sorted
     return sorted(text, key=arrayKey)
@@ -32,7 +36,10 @@ def normDur(dir_path, dest_path, fileName, avg_fps, fps, erase_frames):  # Norma
                 os.makedirs(os.path.join(dest_path,str(i)))
 
         for i in range((len([x[2] for x in os.walk(dir_path)][0]))):                             # Partitioning all frames into sub videos
-            seqPath    = str(int(i/avg_fps))                                                     # Get respective sequence path of current frame
+            seqPath = str(int(i/avg_fps))
+            fileN = fileName.split('.')[0]
+            print(f'the sequent path {seqPath} of this image {fileName}')                                                     # Get respective sequence path of current frame
+            logger.info(f'the sequent path {seqPath} of this image {fileName}')
 
             if int(seqPath) >= size: break
             fileN = fileName[:-4]
@@ -47,6 +54,8 @@ def normDur(dir_path, dest_path, fileName, avg_fps, fps, erase_frames):  # Norma
         for i in range(size):                                                                    # Create all sub videos of each sequence path
             imgs = [os.path.join(dest_path,str(i), img) for img in humanSort(os.listdir(os.path.join(dest_path,str(i)))) if '.png' in img]  # Get list of full path of each images in each sub seq folder
 
+            print(f' the value of the images are {imgs}')
+            logger.info(f' the value of the images are {imgs}') 
             clips = [mp.ImageClip(m).set_duration(1 / fps-0.0000001) for m in imgs]              # Create ImageClip with duration per image
 
             concat_clip = mp.concatenate_videoclips(clips,  method="compose")
@@ -56,8 +65,8 @@ def normDur(dir_path, dest_path, fileName, avg_fps, fps, erase_frames):  # Norma
         print(f'Successfully {fileName} normalized!')
         logger.info(f'Successfully {fileName} normalized!')
     else:
+        print(*too_short, sep = ", ") 
         too_short.append(dir_path)
-
 
 
 def read_paths(root_frames, root_dest, avg_fps, fps, erase_frames):
@@ -76,7 +85,6 @@ def read_paths(root_frames, root_dest, avg_fps, fps, erase_frames):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-
     #Create instance of logger to log the changes in a file
     today = date.today()
     today = today.strftime("%d_%m_%Y__%m_%h_%s")

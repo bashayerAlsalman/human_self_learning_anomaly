@@ -1,0 +1,25 @@
+
+
+
+python3 utils/video_frames.py --root_videos data/UBI_FIGHTS/videos --root_conv_videos /media/imam/Book/human_self_learning_anomaly/conv_videos --root_frames /media/imam/Book/human_self_learning_anomaly/frames
+python3 utils/normalize_videos.py --root_frames /media/imam/Book/human_self_learning_anomaly/frames --root_sub_videos /media/imam/Book/human_self_learning_anomaly/sub_videos 
+python3 utils/video_frames.py --root_videos data/UBI_FIGHTS/videos --root_conv_videos /media/imam/My\ Book/human_self_learning_anomaly/conv_videos --root_frames /media/imam/My\ Book/human_self_learning_anomaly/frames
+
+
+##See the GPU usage through terminal by this command: nvidia-smi -l 2
+
+the experment that have been done in single video (Noraml)
+1- the old version of the code (Master branch)
+
+python3 utils/video_frames.py --root_videos data/UBI_FIGHTS_small/videos --root_conv_videos data/conv_videos --root_frames data/frames
+python3 utils/normalize_videos_2.py --root_frames data/frames --root_sub_videos data/sub_videos --erase_frames 
+
+python3 utils/normalize_notes.py --root_csv data/UBI_FIGHTS/annotation --dest_csv data/UBI_FIGHTS/annotation --fps 30 --duration 16
+
+
+python3 utils/normalize_notes.py --root_csv data/UBI_FIGHTS/annotation --dest_csv data/annotation.csv --fps 30 --duration 16
+
+
+tested and its working!
+1- python3 utils/video_frames.py --root_videos ./data/UBI_FIGHTS_small/videos --root_conv_videos ./data/conv_videos --root_frames ./data/frames
+2- python3 utils/normalize_videos.py --root_frames ./data/frames --root_sub_videos ./data/sub_videos --erase_frames 

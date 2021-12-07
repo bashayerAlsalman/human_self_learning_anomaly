@@ -18,7 +18,7 @@ def read_file(source):
 
 
 def write_file(source, content):
-    with open(source, 'w') as writeFile:
+    with open(source, 'w+') as writeFile:
         writer = csv.writer(writeFile)
         writer.writerows(content)
 
@@ -26,15 +26,14 @@ def write_file(source, content):
 def normalize(root_csv, dest_csv, num_frames):
 
     for csv_file in humanSort(os.listdir(root_csv)):
-        path_csv_full = os.path.join(root_csv,csv_file)
-        frame_full = read_file(path_csv_full)
-
-        print(len(frame_full))
-        frame_seq = [frame_full[i: i + num_frames] for i in range(0, len(frame_full), num_frames)]
-        print(len(frame_seq))
+        csv_full_path = os.path.join(root_csv,csv_file)
+        file_contents = read_file(csv_full_path)
+        print(f'full path of the csv file {csv_full_path}, length  {len(file_contents)}')
+        frame_seq = [file_contents[i: i + num_frames] for i in range(0, len(file_contents), num_frames)]
+        print(f'sequence length {len(frame_seq)}')
 
         csv_solo = csv_file[:-4]
-        for i, seq in enumerate(frame_seq): write_file(os.path.join(dest_csv,csv_solo+'_'+str(i)+'.csv'), seq)
+        for i, seq in enumerate(frame_seq): write_file(os.path.join(dest_csv, csv_solo + '_' + str(i) + '.csv'), seq)
 
 
 if __name__ == '__main__':
@@ -50,5 +49,5 @@ if __name__ == '__main__':
 
     num_frames = opt.fps * opt.duration
 
-    normalize(opt.root_videos, opt.root_conv_videos, num_frames)
+    normalize(opt.root_csv, opt.dest_csv, num_frames)
 

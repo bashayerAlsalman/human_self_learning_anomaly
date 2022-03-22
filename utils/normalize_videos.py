@@ -51,7 +51,7 @@ def normDur(dir_path, dest_path, fileName, avg_fps, fps, erase_frames):  # Norma
 
             concat_clip = mp.concatenate_videoclips(clips,  method="compose")
             concat_clip.write_videofile(os.path.join(dest_path, fileName[:-4] + "_" + str(i) + '.mp4'), fps=fps)
-            shutil.rmtree(os.path.join(dest_path, str(i))) if erase_frames else None
+            #shutil.rmtree(os.path.join(dest_path, str(i))) if erase_frames else None
 
         print(f'Successfully {fileName} normalized!')
         logger.info(f'Successfully {fileName} normalized!')
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     parser.add_argument('--root_sub_videos', type=str, default='DEST_PATH_TO_SUB_VIDEOS', help='Destination path to sub videos')
     parser.add_argument('--duration',        type=int, default=16,                        help='Seconds, recommended to be multiple of 8, for consistency')
     parser.add_argument('--fps',             type=int, default=30,                        help='FPS to normalize (RECOMMENDED 25~30 FOR C3D!!)')
-    parser.add_argument('--erase_frames',    action='store_true',                         help='Erase directories with frames')
+    parser.add_argument('--erase_frames',    action='store_true', default=False,                         help='Erase directories with frames')
 
     opt = parser.parse_args()
 

@@ -15,3 +15,5 @@ python3 utils/normalize_videos.py --root_frames data/frames --root_sub_videos da
 
 
  python3 utils/normalize_notes.py --root_csv data/UBI_FIGHTS/annotation --dest_csv data/annotation.csv --fps 30 --duration 16
+
+
